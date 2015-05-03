@@ -1,5 +1,7 @@
 <?php namespace Codersmedia\TrendooSms;
 
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
 class TrendooSmsServiceProvider extends ServiceProvider {
@@ -14,18 +16,18 @@ class TrendooSmsServiceProvider extends ServiceProvider {
 
 	public function boot(){
 
-		/*$loader  = AliasLoader::getInstance();
-        	$aliases = Config::get('app.aliases');
-        	
+		$loader  = AliasLoader::getInstance();
+		$aliases = Config::get('app.aliases');
+
 		if (empty($aliases['SMS'])) {
-            		$loader->alias('SMS', 'Codersmedia\TrendooSms\Facades\Trendoo');
-        	}*/
+			$loader->alias('SMS', 'Codersmedia\TrendooSms\Facades\Trendoo');
+		}
 
 		$this->publishes([
-           		 __DIR__.'/config/trendoo.php' => config_path('trendoo.php'),
-        	]);
+			__DIR__.'/config/trendoo.php' => config_path('trendoo.php'),
+		]);
 	}
-	
+
 	/**
 	 * Register the service provider.
 	 *
@@ -35,7 +37,7 @@ class TrendooSmsServiceProvider extends ServiceProvider {
 	{
 		\App::bind('sms', function()
 		{
-    			return new \Codersmedia\TrendooSms\Trendoo;
+			return new \Codersmedia\TrendooSms\Trendoo;
 		});
 	}
 
