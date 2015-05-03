@@ -33,7 +33,7 @@ class TrendooSmsServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		App::bind('sms', function()
+		\App::bind('sms', function()
 		{
     			return new \Codersmedia\TrendooSms\Trendoo;
 		});
