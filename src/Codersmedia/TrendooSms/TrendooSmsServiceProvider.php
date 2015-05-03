@@ -1,6 +1,6 @@
 <?php namespace Codersmedia\TrendooSms;
 
-use AliasLoader;
+use Illuminate\Foundation\AliasLoader;
 use Config;
 use Illuminate\Support\ServiceProvider;
 
