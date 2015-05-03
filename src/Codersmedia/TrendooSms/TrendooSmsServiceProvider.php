@@ -1,7 +1,7 @@
 <?php namespace Codersmedia\TrendooSms;
 
-use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\Facades\Config;
+use AliasLoader;
+use Config;
 use Illuminate\Support\ServiceProvider;
 
 class TrendooSmsServiceProvider extends ServiceProvider {
