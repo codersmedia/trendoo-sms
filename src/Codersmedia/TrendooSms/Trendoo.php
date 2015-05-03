@@ -1,5 +1,7 @@
 <?php namespace Codersmedia\TrendooSms;
 
+use Config;
+
 class Trendoo {
 	/**
 	 * @var string $debug
