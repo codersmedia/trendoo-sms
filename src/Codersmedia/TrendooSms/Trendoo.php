@@ -340,8 +340,12 @@ class Trendoo {
      */
     public static function sendMessage(Array $recipients, $message, $option = null)
     {
+
+        $recipients = implode(',',$recipients);
+
         $params = [
-            'message' => $message
+            'message' => $message,
+            'recipient' => $recipients
         ];
 
         if($option) {
@@ -355,7 +359,7 @@ class Trendoo {
         // $this->smsChars
         self::charsCount($message);
 
-        self::tryRequest(slef::$send_endpoint, $params);
+        self::tryRequest(self::$send_endpoint, $params);
 
     }
 
@@ -367,6 +371,7 @@ class Trendoo {
     protected static function createDateTime($data){
         self::$data = \DateTime::createFromFormat(self::$dateFormat,$data);
     }
+
     public static function getData($format){
         return date_format(self::$data,$format);
     }
