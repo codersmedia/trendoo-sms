@@ -1,8 +1,10 @@
 <?php
 
-namespace Illuminate\Support\Facades;
+namespace Codersmedia\TrendooSms;
 
-class Trendoo extends Facade {
+use Illuminate\Support\Facades\Facade;
+
+class TrendooFacades extends Facade {
 
     /**
      * Get the registered name of the component.
