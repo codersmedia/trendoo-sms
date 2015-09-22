@@ -19,7 +19,7 @@ class TrendooSmsServiceProvider extends ServiceProvider {
 	}
 
 	private function handleConfigs() {
-		$configPath = __DIR__ . '/../config/trendoo.php';
+		$configPath = __DIR__ . 'config/trendoo.php';
 		$this->publishes([$configPath => config_path('trendoo.php')]);
 		$this->mergeConfigFrom($configPath, 'trendoo');
 	}
