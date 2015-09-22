@@ -4,7 +4,7 @@ namespace Codersmedia\TrendooSms;
 
 use Illuminate\Support\Facades\Facade;
 
-class TrendooFacades extends Facade {
+class TrendooFacade extends Facade {
 
     /**
      * Get the registered name of the component.
