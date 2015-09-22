@@ -40,49 +40,49 @@ class Trendoo {
      * SETTINGS
      *****************************************************/
 
-    protected $dateFormat       		= 'yyyyMMddHHmmss';
-    protected $method          			= 'GET';
-    protected $responseColumnDivider  	= '|';
-    protected $responseNewLineDivider  	= ';';
-    protected $responseError    		= 'KO';
-    protected $responseValid    		= 'OK';
-    protected $iso              		= 'IT';    //ISO 3166
-    protected $charset          		= 'UTF-8';
-    protected $singleSmsChars   		= 160;
-    protected $maxSmsChars      		= 1000;
-    protected $specialChars     		= ['^', '{', '}', '\\', '[', '~', ']', '|', '€'];
-    protected $base_url         		= "https://api.trendoo.it/Trend/";
-    protected $send_endpoint    		= 'SENDSMS';
-    protected $status_endpoint  		= 'SMSSTATUS';
-    protected $remove_delayed_endpoint  = 'REMOVE_DELAYED';
-    protected $history_endpoint  		= 'SMSDELAYED';
-    protected $credits_endpoint  		= 'CREDITS';
+    protected static $dateFormat       		= 'yyyyMMddHHmmss';
+    protected static $method          			= 'GET';
+    protected static $responseColumnDivider  	= '|';
+    protected static $responseNewLineDivider  	= ';';
+    protected static $responseError    		= 'KO';
+    protected static $responseValid    		= 'OK';
+    protected static $iso              		= 'IT';    //ISO 3166
+    protected static $charset          		= 'UTF-8';
+    protected static $singleSmsChars   		= 160;
+    protected static $maxSmsChars      		= 1000;
+    protected static $specialChars     		= ['^', '{', '}', '\\', '[', '~', ']', '|', '€'];
+    protected static $base_url         		= "https://api.trendoo.it/Trend/";
+    protected static $send_endpoint    		= 'SENDSMS';
+    protected static $status_endpoint  		= 'SMSSTATUS';
+    protected static $remove_delayed_endpoint  = 'REMOVE_DELAYED';
+    protected static $history_endpoint  		= 'SMSDELAYED';
+    protected static $credits_endpoint  		= 'CREDITS';
 
     /*******************
      * Response Status
      ******************/
 
-    protected $SCHEDULED 	= 'Positicipato, non ancora inviato';
-    protected $SENT 		= 'Inviato, non attende delivery';
-    protected $DLVRD 		= 'Sms correttamente ricevuto';
-    protected $ERROR 		= 'Errore nella consegna SMS';
-    protected $TIMEOUT 		= 'Operatore non ha fornito informazioni sullo stato del messaggio entro 48 ore';
-    protected $TOOM4NUM 	= 'Troppi SMS per lo stesso destinatario nelle ultime 24 ore';
-    protected $TOOM4USER 	= 'Troppi SMS inviati dall\'utente nelle ultime 24 ore';
-    protected $UNKNPFX 		= 'Prefisso SMS non valido o sconosciuto';
-    protected $UNKNRCPT 	= 'Numero del destinatario non valido o sconosciuto';
-    protected $WAIT4DLVR 	= 'Messaggio inviato, in attesa di delivery';
-    protected $WAITING 		= 'In attesa, non ancora inviato';
-    protected $UNKNOWN 		= 'Stato sconosciuto';
+    protected static $SCHEDULED 	= 'Positicipato, non ancora inviato';
+    protected static $SENT 		= 'Inviato, non attende delivery';
+    protected static $DLVRD 		= 'Sms correttamente ricevuto';
+    protected static $ERROR 		= 'Errore nella consegna SMS';
+    protected static $TIMEOUT 		= 'Operatore non ha fornito informazioni sullo stato del messaggio entro 48 ore';
+    protected static $TOOM4NUM 	= 'Troppi SMS per lo stesso destinatario nelle ultime 24 ore';
+    protected static $TOOM4USER 	= 'Troppi SMS inviati dall\'utente nelle ultime 24 ore';
+    protected static $UNKNPFX 		= 'Prefisso SMS non valido o sconosciuto';
+    protected static $UNKNRCPT 	= 'Numero del destinatario non valido o sconosciuto';
+    protected static $WAIT4DLVR 	= 'Messaggio inviato, in attesa di delivery';
+    protected static $WAITING 		= 'In attesa, non ancora inviato';
+    protected static $UNKNOWN 		= 'Stato sconosciuto';
 
 
     /*******************
      * Response slug
      ******************/
 
-    protected $SI	= 'Sms SILVER';
-    protected $GS	= 'Sms GOLD';
-    protected $GP	= 'Sms GOLD+';
+    protected static $SI	= 'Sms SILVER';
+    protected static $GS	= 'Sms GOLD';
+    protected static $GP	= 'Sms GOLD+';
 
     /*****************************************************
      * END PARAM.
@@ -269,7 +269,7 @@ class Trendoo {
                 $parsed[] = [
                     'recipient' => $tmp[0],
                     'status' => $tmp[1],
-                    'status_message' => $this->statusToMessagge($tmp[1]),
+                    'status_message' => $this->statusToMessage($tmp[1]),
                     'delivery_date' => isset($tmp[0]) ?: 'N/A',
                 ];
             }
@@ -299,7 +299,7 @@ class Trendoo {
         }
     }
 
-    protected function statusToMessagge($status){
+    protected function statusToMessage($status){
         return $this->{$status};
     }
 
@@ -361,8 +361,8 @@ class Trendoo {
     }
 
 
-    public function checkCredits(){
-        return $this->tryRequest($this->credits_endpoint);
+    public static function checkCredits(){
+        return self::tryRequest(self::$credits_endpoint);
     }
 
     protected function createDateTime($data){
