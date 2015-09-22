@@ -146,7 +146,6 @@ class Trendoo {
 
     protected static function tryRequest($endpoint, Array $params = null){
         try {
-
             self::doRequest($endpoint, $params);
 
             if(self::$responseStatus == 200) {
@@ -366,7 +365,7 @@ class Trendoo {
     }
 
     protected static function createDateTime($data){
-        slef::$data = \DateTime::createFromFormat(self::$dateFormat,$data);
+        self::$data = \DateTime::createFromFormat(self::$dateFormat,$data);
     }
     public static function getData($format){
         return date_format(self::$data,$format);
