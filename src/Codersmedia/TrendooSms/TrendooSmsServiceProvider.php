@@ -6,6 +6,7 @@ class TrendooSmsServiceProvider extends ServiceProvider {
 
 	public function boot(){
 		$this->handleConfigs();
+		$this->handleBinds();
 	}
 
 	/**
@@ -21,6 +22,13 @@ class TrendooSmsServiceProvider extends ServiceProvider {
 	private function handleConfigs() {
 		$configPath = __DIR__ . '../../config/trendoo.php';
 		$this->publishes([$configPath => config_path('trendoo.php')]);
+	}
+
+	private function handleBinds(){
+		$this->app->bind('sms', function()
+		{
+			return new \Codersmedia\TrendooSms\Trendoo;
+		});
 	}
 
 }
