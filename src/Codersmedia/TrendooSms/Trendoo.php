@@ -28,19 +28,21 @@ class Trendoo {
      */
     protected $sender;
 
-
-
-
-    /*
-     * DON'T TOUCH THIS PARAM!!!!!!!!
-     * Referer to: http://www.trendoo.it/pdf/API_http.pdf
-     *
-     * Settings
+    /**
+     * @var DateTime $data
      */
+    protected $data;
+
+    /*****************************************************
+     * DO NOT EDIT THE BELOW PARAM.
+     * @link: http://www.trendoo.it/pdf/API_http.pdf
+     *
+     * SETTINGS
+     *****************************************************/
 
     protected $dateFormat       		= 'yyyyMMddHHmmss';
     protected $method          			= 'GET';
-    protected $responseColumnDivider  		= '|';
+    protected $responseColumnDivider  	= '|';
     protected $responseNewLineDivider  	= ';';
     protected $responseError    		= 'KO';
     protected $responseValid    		= 'OK';
@@ -56,11 +58,11 @@ class Trendoo {
     protected $history_endpoint  		= 'SMSDELAYED';
     protected $credits_endpoint  		= 'CREDITS';
 
-    /*
+    /*******************
      * Response Status
-     */
+     ******************/
 
-    protected $SCHEDULED 	= 'Positicipato, non acnora inviato';
+    protected $SCHEDULED 	= 'Positicipato, non ancora inviato';
     protected $SENT 		= 'Inviato, non attende delivery';
     protected $DLVRD 		= 'Sms correttamente ricevuto';
     protected $ERROR 		= 'Errore nella consegna SMS';
@@ -74,13 +76,18 @@ class Trendoo {
     protected $UNKNOWN 		= 'Stato sconosciuto';
 
 
-    /*
+    /*******************
      * Response slug
-     */
+     ******************/
 
     protected $SI	= 'Sms SILVER';
     protected $GS	= 'Sms GOLD';
     protected $GP	= 'Sms GOLD+';
+
+    /*****************************************************
+     * END PARAM.
+     * @link: http://www.trendoo.it/pdf/API_http.pdf
+     *****************************************************/
 
     /*
      * Response Params
@@ -111,11 +118,9 @@ class Trendoo {
     }
 
 
-    /*
-     *
-     * REQUEST
-     *
-     */
+    /**************
+     *   REQUEST  *
+     **************/
 
     /**
      * @param $endpoint
@@ -187,32 +192,25 @@ class Trendoo {
     }
 
 
-    /*
-     *
-     * CHECK
-     *
-     */
+    /**************
+     *    CHECK   *
+     **************/
 
     protected function charsCount($message = null){
 
         if ($message == null) return 0;
-
         $count = 0;
-
         foreach($this->specialChars as $special) {
             $count += substr_count($message, $special);
         }
-
         $count += strlen($message);
         $this->smsChars = $count;
 
     }
 
-    /*
-     *
-     * 	RESPONSE
-     *
-     */
+    /**************
+    *  	RESPONSE  *
+    **************/
 
     /**
      * @param $responseBody
@@ -286,7 +284,6 @@ class Trendoo {
         $parsed = null;
         $i = 0;
         if($data[0] == $this->responseValid) {
-
             foreach($data as $element) {
                 if (($i++ == 0)) continue;
                 if($i == count($data)) break;
@@ -367,5 +364,18 @@ class Trendoo {
     public function checkCredits(){
         return $this->tryRequest($this->credits_endpoint);
     }
+
+    protected function createDateTime($data){
+        $this->data = \DateTime::createFromFormat($this->dateFormat,$data);
+    }
+    public function getData($format){
+        return date_format($this->data,$format);
+    }
+
+    protected function generateError($message, $code = 502){
+        return $this->responseWithError($code,$message);
+        die();
+    }
+
 
 }

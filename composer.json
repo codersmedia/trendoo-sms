@@ -1,6 +1,9 @@
 {
     "name": "codersmedia/trendoo-sms",
-    "description": "",
+    "description": "Trendoo SMS wrapper for Laravel 5",
+    "keywords": ["tredtoo","sms","gataway","sms-api"],
+    "homepage": "",
+    "license": "MIT",
     "authors": [
         {
             "name": "Matteo Schiona",
@@ -9,11 +12,15 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": ">=5.0"
+        "illuminate/config": "~5.0",
+        "illuminate/support": "~5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
     },
     "autoload": {
         "psr-0": {
-            "Codersmedia\\TrendooSms": "src/"
+            "Codersmedia\\TrendooSms\\": "src/"
         }
     },
     "minimum-stability": "stable"

@@ -1,5 +1,16 @@
-<?php namespace Codersmedia\TrendooSms\Facades;
-use Illuminate\Support\Facades\Facade;
+<?php
+
+namespace Illuminate\Support\Facades;
+
 class Trendoo extends Facade {
-    protected static function getFacadeAccessor() { return 'sms'; }
+
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor()
+    {
+        return 'sms';
+    }
 }
