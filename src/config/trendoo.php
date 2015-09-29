@@ -1,7 +1,7 @@
 <?php
 return [
     'debug'             => true,
-    'base_url'		=> 'api.trendoo.it/Trend' // www.smsfarm.net
+    'base_url'          => 'api.trendoo.it', // www.smsfarm.net
     'login'             => env('TRENDOO_USER', 'demo'),
     'password'          => env('TRENDOO_PASS', 'demo'),
     'sms' => [

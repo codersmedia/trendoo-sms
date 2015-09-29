@@ -45,48 +45,49 @@ class Trendoo {
      * SETTINGS
      *****************************************************/
 
-    protected static $dateFormat       		= 'yyyyMMddHHmmss';
-    protected static $method          			= 'GET';
-    protected static $responseColumnDivider  	= '|';
-    protected static $responseNewLineDivider  	= ';';
-    protected static $responseError    		= 'KO';
-    protected static $responseValid    		= 'OK';
-    protected static $iso              		= 'IT';    //ISO 3166
-    protected static $charset          		= 'UTF-8';
-    protected static $singleSmsChars   		= 160;
-    protected static $maxSmsChars      		= 1000;
-    protected static $specialChars     		= ['^', '{', '}', '\\', '[', '~', ']', '|', '€'];
-    protected static $send_endpoint    		= 'SENDSMS';
-    protected static $status_endpoint  		= 'SMSSTATUS';
+    protected static $dateFormat                = 'yyyyMMddHHmmss';
+    protected static $method                    = 'GET';
+    protected static $responseColumnDivider     = '|';
+    protected static $responseNewLineDivider    = ';';
+    protected static $responseError             = 'KO';
+    protected static $responseValid             = 'OK';
+    protected static $iso                       = 'IT';    //ISO 3166
+    protected static $charset                   = 'UTF-8';
+    protected static $singleSmsChars            = 160;
+    protected static $maxSmsChars               = 1000;
+    protected static $specialChars              = ['^', '{', '}', '\\', '[', '~', ']', '|', '€'];
+    protected static $send_endpoint             = 'SENDSMS';
+    protected static $status_endpoint           = 'SMSSTATUS';
     protected static $remove_delayed_endpoint   = 'REMOVE_DELAYED';
-    protected static $history_endpoint  	= 'SMSDELAYED';
-    protected static $credits_endpoint  	= 'CREDITS';
+    protected static $history_endpoint          = 'SMSDELAYED';
+    protected static $credits_endpoint          = 'CREDITS';
 
     /*******************
      * Response Status
      ******************/
 
-    protected static $SCHEDULED 	= 'Positicipato, non ancora inviato';
-    protected static $SENT 		= 'Inviato, non attende delivery';
-    protected static $DLVRD 		= 'Sms correttamente ricevuto';
-    protected static $ERROR 		= 'Errore nella consegna SMS';
-    protected static $TIMEOUT 		= 'Operatore non ha fornito informazioni sullo stato del messaggio entro 48 ore';
-    protected static $TOOM4NUM 	= 'Troppi SMS per lo stesso destinatario nelle ultime 24 ore';
-    protected static $TOOM4USER 	= 'Troppi SMS inviati dall\'utente nelle ultime 24 ore';
-    protected static $UNKNPFX 		= 'Prefisso SMS non valido o sconosciuto';
-    protected static $UNKNRCPT 	= 'Numero del destinatario non valido o sconosciuto';
-    protected static $WAIT4DLVR 	= 'Messaggio inviato, in attesa di delivery';
-    protected static $WAITING 		= 'In attesa, non ancora inviato';
-    protected static $UNKNOWN 		= 'Stato sconosciuto';
+    protected static $SCHEDULED     = 'Positicipato, non ancora inviato';
+    protected static $SENT          = 'Inviato, non attende delivery';
+    protected static $DLVRD         = 'Sms correttamente ricevuto';
+    protected static $ERROR         = 'Errore nella consegna SMS';
+    protected static $TIMEOUT       = 'Operatore non ha fornito informazioni sullo stato del messaggio entro 48 ore';
+    protected static $TOOM4NUM      = 'Troppi SMS per lo stesso destinatario nelle ultime 24 ore';
+    protected static $TOOM4USER     = 'Troppi SMS inviati dall\'utente nelle ultime 24 ore';
+    protected static $UNKNPFX       = 'Prefisso SMS non valido o sconosciuto';
+    protected static $UNKNRCPT      = 'Numero del destinatario non valido o sconosciuto';
+    protected static $WAIT4DLVR     = 'Messaggio inviato, in attesa di delivery';
+    protected static $WAITING       = 'In attesa, non ancora inviato';
+    protected static $UNKNOWN       = 'Stato sconosciuto';
 
 
     /*******************
      * Response slug
      ******************/
 
-    protected static $SI	= 'Sms SILVER';
-    protected static $GS	= 'Sms GOLD';
-    protected static $GP	= 'Sms GOLD+';
+    protected static $SI     = 'Sms SILVER';
+    protected static $GS     = 'Sms GOLD';
+    protected static $GP     = 'Sms GOLD+';
+    protected static $EE     = 'Sms Esteri';
 
     /*****************************************************
      * END PARAM.
