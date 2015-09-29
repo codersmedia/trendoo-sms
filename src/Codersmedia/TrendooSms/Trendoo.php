@@ -33,6 +33,11 @@ class Trendoo {
      */
     protected static $data;
 
+    /**
+     * @var mixed $base_url
+     */
+    protected static $base_url;
+
     /*****************************************************
      * DO NOT EDIT THE BELOW PARAM.
      * @link: http://www.trendoo.it/pdf/API_http.pdf
@@ -51,7 +56,6 @@ class Trendoo {
     protected static $singleSmsChars   		= 160;
     protected static $maxSmsChars      		= 1000;
     protected static $specialChars     		= ['^', '{', '}', '\\', '[', '~', ']', '|', '€'];
-    protected static $base_url         		= "";
     protected static $send_endpoint    		= 'SENDSMS';
     protected static $status_endpoint  		= 'SMSSTATUS';
     protected static $remove_delayed_endpoint   = 'REMOVE_DELAYED';
@@ -100,7 +104,7 @@ class Trendoo {
 
     public function __construct()
     {
-	self::$base_url		= Config::get("trendoo.base_url");
+	    self::$base_url		= Config::get("trendoo.base_url") . '/Trend/';
         self::$username   	= Config::get("trendoo.login");
         self::$password   	= Config::get("trendoo.password");
         self::$message_type = Config::get("trendoo.sms.message_type");
