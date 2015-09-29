@@ -51,12 +51,12 @@ class Trendoo {
     protected static $singleSmsChars   		= 160;
     protected static $maxSmsChars      		= 1000;
     protected static $specialChars     		= ['^', '{', '}', '\\', '[', '~', ']', '|', '€'];
-    protected static $base_url         		= "https://api.trendoo.it/Trend/";
+    protected static $base_url         		= "";
     protected static $send_endpoint    		= 'SENDSMS';
     protected static $status_endpoint  		= 'SMSSTATUS';
-    protected static $remove_delayed_endpoint  = 'REMOVE_DELAYED';
-    protected static $history_endpoint  		= 'SMSDELAYED';
-    protected static $credits_endpoint  		= 'CREDITS';
+    protected static $remove_delayed_endpoint   = 'REMOVE_DELAYED';
+    protected static $history_endpoint  	= 'SMSDELAYED';
+    protected static $credits_endpoint  	= 'CREDITS';
 
     /*******************
      * Response Status
@@ -100,6 +100,7 @@ class Trendoo {
 
     public function __construct()
     {
+	self::$base_url		= Config::get("trendoo.base_url");
         self::$username   	= Config::get("trendoo.login");
         self::$password   	= Config::get("trendoo.password");
         self::$message_type = Config::get("trendoo.sms.message_type");
