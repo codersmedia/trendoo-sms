@@ -56,11 +56,14 @@ class Trendoo {
     protected static $singleSmsChars            = 160;
     protected static $maxSmsChars               = 1000;
     protected static $specialChars              = ['^', '{', '}', '\\', '[', '~', ']', '|', '€'];
-    protected static $send_endpoint             = 'SENDSMS';
-    protected static $status_endpoint           = 'SMSSTATUS';
-    protected static $remove_delayed_endpoint   = 'REMOVE_DELAYED';
-    protected static $history_endpoint          = 'SMSDELAYED';
-    protected static $credits_endpoint          = 'CREDITS';
+    protected static $send_endpoint             = 'Trend/SENDSMS';
+    protected static $status_endpoint           = 'Trend/SMSSTATUS';
+    protected static $remove_delayed_endpoint   = 'Trend/REMOVE_DELAYED';
+    protected static $history_endpoint          = 'Trend/SMSHISTORY';
+    protected static $credits_endpoint          = 'Trend/CREDITS';
+    protected static $sms_new_endpoint          = 'OESRs/SRNEWMESSAGE';
+    protected static $sms_history_endpoint      = 'OESRs/SRHISTORY';
+    protected static $sms_historyid_endpoint    = 'OESRs/SRHISTORYBYID';
 
     /*******************
      * Response Status
@@ -228,20 +231,29 @@ class Trendoo {
         }
         else {
             switch($endpoint){
-                case 'SENDSMS':
+                case 'Trend/SENDSMS':
                     return self::sentParse($responseBody);
                     break;
-                case 'SMSSTATUS':
+                case 'Trend/SMSSTATUS':
                     return self::statusParse($responseBody);
                     break;
-                case 'CREDITS':
+                case 'Trend/CREDITS':
                     return self::creditsParse($responseBody);
                     break;
-                case 'REMOVE_DELAYED':
+                case 'Trend/REMOVE_DELAYED':
                     return self::rmDelayParse($responseBody);
                     break;
-                case 'SMSDELAYED':
-                    return self::delayedParse($responseBody);
+                case 'Trend/SMSHISTORY':
+                    return self::historyParse($responseBody);
+                    break;
+                case 'OESRs/SRNEWMESSAGES':
+                    return self::smsNewParse($responseBody);
+                    break;
+                case 'OESRs/SRHISTORY':
+                    return self::smsHistoryParse($responseBody);
+                    break;
+                case 'OESRs/SRHYSTORYBYID':
+                    return self::smsHistoryIdParse($responseBody);
                     break;
             }
             return self::responseWithError(0,'No endpoint defined');
@@ -304,6 +316,109 @@ class Trendoo {
         }
     }
 
+    protected function rmDelayParse($response)
+    {
+        $data = explode(self::$responseNewLineDivider, $response);
+        $parsed = null;
+        if($data[0] == self::$responseValid) {
+            return self::responseWithSuccess($parsed);
+        }
+    }
+
+
+    protected function historyParse($response)
+    {
+        //OK;
+        //|20090217164232|GS||2|20090219164153; {6}
+        //1F11FEAD08FE0|20090309113910|GP|test|1|; {6}
+        //|20090309120139|GP|mItTeNtE|2| {6}
+
+        $data = explode(self::$responseNewLineDivider, $response);
+        $parsed = null;
+        $i = 0;
+        if($data[0] == self::$responseValid) {
+            foreach($data as $element) {
+                if (($i++ == 0)) continue;
+                if($i == count($data)) break;
+                $tmp = explode(self::$responseColumnDivider, $element);
+                $parsed[] = [
+                    'message_id' => $tmp[0],
+                    'creation_date' => $tmp[1],
+                    'type' => $tmp[2],
+                    'type_human' => self::${$tmp[2]},
+                    'sender' => $tmp[3],
+                    'recipient_count' => $tmp[4],
+                    'send_at' => $tmp[5]
+                ];
+            }
+            return self::responseWithSuccess($parsed);
+        }
+    }
+
+    protected function smsNewParse($response)
+    {
+        //OK;
+
+        $data = explode(self::$responseNewLineDivider, $response);
+        $parsed = null;
+        if($data[0] == self::$responseValid) {
+            return self::responseWithSuccess($parsed);
+        }
+    }
+    protected function smsHistoryParse($response)
+    {
+        // OK;83342|%2B393407249303|%2B393493888678|FURTO+NEROCUBO|20150930101353|;
+
+        $data = explode(self::$responseNewLineDivider, $response);
+        $parsed = null;
+        $i = 0;
+        if($data[0] == self::$responseValid) {
+            foreach($data as $element) {
+                if (($i++ == 0)) continue;
+                if($i == count($data)) break;
+                $tmp = explode(self::$responseColumnDivider, $element);
+                $parsed[] = [
+                    'message_id' => $tmp[0],
+                    'recipient' => $tmp[1],
+                    'sender' => $tmp[3],
+                    'message' => $tmp[4],
+                    'send_at' => $tmp[5]
+                ];
+            }
+            return self::responseWithSuccess($parsed);
+        }
+    }
+
+    protected function smsHistoryIdParse($response)
+    {
+        $data = explode(self::$responseNewLineDivider, $response);
+        $parsed = null;
+        if($data[0] == self::$responseValid) {
+            return self::responseWithSuccess($parsed);
+        }
+    }
+
+    protected function smsPostParse($request)
+    {
+        // OK;83342|%2B393407249303|%2B393493888678|FURTO+NEROCUBO|20150930101353|;
+
+        $data = explode(self::$responseNewLineDivider, $request);
+        $parsed = null;
+        $i = 0;
+        foreach($data as $element) {
+            if($i == count($data)) break;
+            $tmp = explode(self::$responseColumnDivider, $element);
+            $parsed[] = [
+                'message_id' => $tmp[0],
+                'message' => $tmp[1],
+                'sender' => $tmp[3],
+                'recipient' => $tmp[4],
+                'delivery_date' => $tmp[5]
+            ];
+        }
+        return self::responseWithSuccess($parsed);
+    }
+
     protected static function statusToMessage($status){
         return self::${$status};
     }
@@ -332,6 +447,13 @@ class Trendoo {
         return response()->json(["success" => true, "data" => [$data]]);
     }
 
+    protected static function createDateTime($data){
+        self::$data = \DateTime::createFromFormat(self::$dateFormat,$data);
+    }
+
+    protected static function generateError($message, $code = 502){
+        return self::responseWithError($code,$message);
+    }
 
     /*
      *
@@ -369,22 +491,23 @@ class Trendoo {
 
     }
 
-
     public static function checkCredits(){
         return self::tryRequest(self::$credits_endpoint);
-    }
-
-    protected static function createDateTime($data){
-        self::$data = \DateTime::createFromFormat(self::$dateFormat,$data);
     }
 
     public static function getData($format){
         return date_format(self::$data,$format);
     }
 
-    protected static function generateError($message, $code = 502){
-        return self::responseWithError($code,$message);
+    public function SMSByPost($request){
+        return self::smsPostParse($request);
     }
+
+    public function historySMS(){
+        return self::tryRequest(self::$sms_history_endpoint);
+    }
+
+
 
 
 }
