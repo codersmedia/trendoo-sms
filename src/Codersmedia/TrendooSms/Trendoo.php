@@ -112,7 +112,7 @@ class Trendoo {
         self::$username   	= Config::get("trendoo.login");
         self::$password   	= Config::get("trendoo.password");
         self::$message_type = Config::get("trendoo.sms.message_type");
-        self::$sender      	= Config::get("trendoo.sender");
+        self::$sender      	= Config::get("trendoo.sms.sender");
         self::$debug      	= Config::get("trendoo.debug");
     }
 
@@ -477,11 +477,15 @@ class Trendoo {
         ];
 
         if($option) {
-            $params['message_type'] = isset($option['message_type']) ?: self::$message_type;
-            $params['sender'] = isset($option['sender']) ?: self::$sender;
+            $params['message_type'] = isset($option['message_type']) ? $option['message_type'] : self::$message_type;
+            $params['sender'] = isset($option['sender']) ? $option['sender'] : self::$sender;
             if (isset($option['scheduled_delivery_time'])) $params['scheduled_delivery_time'] = $option['scheduled_delivery_time'];
             if (isset($option['order_id'])) $params['order_id'] = $option['order_id'];
             if (isset($option['returnCredits'])) $params['returnCredits'] = $option['returnCredits'];
+        }
+        else {
+            $params['message_type'] = self::$message_type;
+            $params['sender'] = self::$sender;
         }
 
         // $this->smsChars
