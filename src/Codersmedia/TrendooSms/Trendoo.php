@@ -108,7 +108,7 @@ class Trendoo {
 
     public function __construct()
     {
-	    self::$base_url		= Config::get("trendoo.base_url") . '/Trend/';
+	    self::$base_url		= Config::get("trendoo.base_url");
         self::$username   	= Config::get("trendoo.login");
         self::$password   	= Config::get("trendoo.password");
         self::$message_type = Config::get("trendoo.sms.message_type");
