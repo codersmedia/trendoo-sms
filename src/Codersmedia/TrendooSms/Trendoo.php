@@ -511,25 +511,25 @@ class Trendoo {
         return date_format(self::$data,$format);
     }
 
-    public function SMSByPost($request){
+    public static function SMSByPost($request){
         return self::smsPostParse($request);
     }
 
-    public function historySMS(){
+    public static function historySMS(){
         return self::tryRequest(self::$sms_history_endpoint);
     }
     
-    public function getResponseData(  )
+    public static function getResponseData(  )
     {
        return self::$responseData;
     }
         
-    public function getResponseCode(  )
+    public static function getResponseCode(  )
     {
         return self::$responseCode;
     }
         
-    public function getParsedResponse(  )
+    public static function getParsedResponse(  )
     {
         return self::$parsed_response;
     }
