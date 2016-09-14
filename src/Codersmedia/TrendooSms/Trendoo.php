@@ -1,6 +1,7 @@
 <?php namespace Codersmedia\TrendooSms;
 
 use Config;
+use Exception;
 
 class Trendoo {
     /**
@@ -103,6 +104,7 @@ class Trendoo {
     protected static $requestUrl;
     protected static $responseStatus = null;
     protected static $responseData = null;
+    protected static $parsedResponse = null;
 
     protected static $smsChars = 0;
 
@@ -158,11 +160,17 @@ class Trendoo {
             self::doRequest($endpoint, $params);
 
             if(self::$responseStatus == 200) {
-                return self::parseResponse($endpoint, self::$responseData);
+                self::$parsedResponse = self::parseResponse($endpoint, self::$responseData);
             }
-            else { return self::responseWithError(0,'General error.'); }
-        } catch (Exception $e) {
-            return self::responseWithError(0, $e->getMessage());
+            else {
+                self::$parsedResponse = self::responseWithError(0,'General error.');
+            }
+    
+            return self::$parsed_response;
+        }
+        catch (Exception $e) {
+            self::$parsedResponse = self::responseWithError(0, $e->getMessage());
+            return self::$parsed_response;
         }
     }
 
@@ -510,8 +518,21 @@ class Trendoo {
     public function historySMS(){
         return self::tryRequest(self::$sms_history_endpoint);
     }
-
-
+    
+    public function getResponseData(  )
+    {
+       return self::$responseData;
+    }
+        
+    public function getResponseCode(  )
+    {
+        return self::$responseCode;
+    }
+        
+    public function getParsedResponse(  )
+    {
+        return self::$parsed_response;
+    }
 
 
 }
