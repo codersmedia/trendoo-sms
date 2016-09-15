@@ -534,6 +534,20 @@ class Trendoo {
     }
     
     /**
+     * @param $order_id
+     * @return mixed
+     */
+    public static function smsStatus($order_id)
+    {
+        $params = [
+            'order_id' => $order_id
+        ];
+        
+        self::tryRequest(self::$status_endpoint, $params);
+        
+    }
+    
+    /**
      * @param       $endpoint
      * @param array $params
      *
