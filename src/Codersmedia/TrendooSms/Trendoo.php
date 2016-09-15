@@ -324,7 +324,7 @@ class Trendoo {
         }
     }
 
-    protected function rmDelayParse($response)
+    protected static function rmDelayParse($response)
     {
         $data = explode(self::$responseNewLineDivider, $response);
         $parsed = null;
@@ -334,7 +334,7 @@ class Trendoo {
     }
 
 
-    protected function historyParse($response)
+    protected static function historyParse($response)
     {
         //OK;
         //|20090217164232|GS||2|20090219164153; {6}
@@ -363,7 +363,7 @@ class Trendoo {
         }
     }
 
-    protected function smsNewParse($response)
+    protected static function smsNewParse($response)
     {
         //OK;
 
@@ -373,7 +373,7 @@ class Trendoo {
             return self::responseWithSuccess($parsed);
         }
     }
-    protected function smsHistoryParse($response)
+    protected static function smsHistoryParse($response)
     {
         // OK;83342|%2B393407249303|%2B393493888678|FURTO+NEROCUBO|20150930101353|;
 
@@ -397,7 +397,7 @@ class Trendoo {
         }
     }
 
-    protected function smsHistoryIdParse($response)
+    protected static function smsHistoryIdParse($response)
     {
         $data = explode(self::$responseNewLineDivider, $response);
         $parsed = null;
@@ -406,7 +406,7 @@ class Trendoo {
         }
     }
 
-    protected function smsPostParse($request)
+    protected static function smsPostParse($request)
     {
         // OK;83342|%2B393407249303|%2B393493888678|FURTO+NEROCUBO|20150930101353|;
 
