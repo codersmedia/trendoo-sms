@@ -166,11 +166,11 @@ class Trendoo {
                 self::$parsedResponse = self::responseWithError(0,'General error.');
             }
     
-            return self::$parsed_response;
+            return self::$parsedResponse;
         }
         catch (Exception $e) {
             self::$parsedResponse = self::responseWithError(0, $e->getMessage());
-            return self::$parsed_response;
+            return self::$parsedResponse;
         }
     }
 
@@ -531,7 +531,7 @@ class Trendoo {
         
     public static function getParsedResponse(  )
     {
-        return self::$parsed_response;
+        return self::$parsedResponse;
     }
 
 
