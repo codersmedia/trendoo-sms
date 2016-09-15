@@ -519,6 +519,32 @@ class Trendoo {
         return self::tryRequest(self::$sms_history_endpoint);
     }
     
+    /**
+     * @param $order_id
+     * @return mixed
+     */
+    public static function removeDelayed($order_id)
+    {
+        $params = [
+            'order_id' => $order_id
+        ];
+        
+        self::tryRequest(self::$remove_delayed_endpoint, $params);
+        
+    }
+    
+    /**
+     * @param       $endpoint
+     * @param array $params
+     *
+     * @return mixed
+     */
+    public static function genericRequest($endpoint, Array $params)
+    {
+        self::tryRequest($endpoint, $params);
+        
+    }
+    
     public static function getResponseData(  )
     {
        return self::$responseData;
