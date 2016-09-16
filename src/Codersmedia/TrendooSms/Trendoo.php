@@ -273,10 +273,10 @@ class Trendoo {
         $data = explode(self::$responseColumnDivider, $response);
         if($data[0] == self::$responseValid) {
             return self::responseWithSuccess([
-                'order_id' => $response[1],
+                'order_id' => $datae[1],
                 //TODO if returnCredits = true this return the credit used for request
                 // and not the sensers count.
-                'senders' => $response[2]
+                'senders' => $datae[2]
             ]);
         }
     }
@@ -413,6 +413,7 @@ class Trendoo {
         $data = explode(self::$responseNewLineDivider, $request);
         $parsed = null;
         $i = 0;
+        
         foreach($data as $element) {
             if($i == count($data)) break;
             $tmp = explode(self::$responseColumnDivider, $element);
