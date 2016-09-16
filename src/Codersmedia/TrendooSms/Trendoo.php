@@ -273,10 +273,10 @@ class Trendoo {
         $data = explode(self::$responseColumnDivider, $response);
         if($data[0] == self::$responseValid) {
             return self::responseWithSuccess([
-                'order_id' => $datae[1],
+                'order_id' => $data[1],
                 //TODO if returnCredits = true this return the credit used for request
                 // and not the sensers count.
-                'senders' => $datae[2]
+                'senders' => $data[2]
             ]);
         }
     }
